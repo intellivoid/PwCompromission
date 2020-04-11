@@ -128,7 +128,7 @@
         public function registerCacheObject(string $password, bool $compromised)
         {
             $Query = QueryBuilder::insert_into('pwc', array(
-                'hash' => $this->Database->real_escape_string(hash('sha256', $password)),
+                'hash' => $this->Database->real_escape_string(strtoupper(sha1($password))),
                 'plain_text' => $this->Database->real_escape_string($password) ,
                 'compromised' => (int)$compromised,
                 'timestamp' => (int)time()
@@ -153,7 +153,7 @@
          */
         public function getCacheObject(string $password): CacheObject
         {
-            $hash = hash('sha256', $password);
+            $hash = strtoupper(sha1($password));
             $Query = QueryBuilder::select('pwc', [
                 'id',
                 'hash',
@@ -205,7 +205,7 @@
          *
          * @return Adapter
          */
-        protected function getAdapter()
+        protected function getAdapter(): Adapter
         {
             // Backwards compatibility as I won't bump the version number for this
             // yet. When I add PHP 7 support I'll bump it and remove this.
@@ -238,7 +238,7 @@
          * @param $account
          * @return AccountResponse
          */
-        public function checkAccount($account)
+        public function checkAccount($account): AccountResponse
         {
             return new AccountResponse($this->get("breachedaccount/" . urlencode($account)));
         }
@@ -246,7 +246,7 @@
         /**
          * @return array
          */
-        public function getBreaches()
+        public function getBreaches(): array
         {
             $breachArray = [];
             $result = $this->get("breaches");
@@ -261,7 +261,7 @@
          * @param $name
          * @return BreachResponse
          */
-        public function getBreach($name)
+        public function getBreach($name): BreachResponse
         {
             return new BreachResponse($this->get("breach/" . urlencode($name)));
         }
@@ -269,7 +269,7 @@
         /**
          * @return DataClassResponse
          */
-        public function getDataClasses()
+        public function getDataClasses(): DataClassResponse
         {
             return new DataClassResponse($this->get("dataclasses"));
         }
@@ -278,7 +278,7 @@
          * @param $account
          * @return array
          */
-        public function getPasteAccount($account)
+        public function getPasteAccount($account): array
         {
             $pasteArray = [];
             $result = $this->get("pasteaccount/" . urlencode($account));
@@ -289,7 +289,11 @@
             return $pasteArray;
         }
 
-        public function isPasswordCompromised($password)
+        /**
+         * @param $password
+         * @return PasswordResponse
+         */
+        public function isPasswordCompromised($password): PasswordResponse
         {
             $sha1 = strtoupper(sha1($password));
             $fragment = substr($sha1, 0, 5);
@@ -297,5 +301,34 @@
             $body = $this->getAdapter()->get(self::$password_url . "range/" . urlencode($fragment));
 
             return new PasswordResponse($body, $password);
+        }
+
+        /**
+         * Returns the cache object password with an active check
+         *
+         * @param $password
+         * @return CacheObject
+         * @throws DatabaseException
+         */
+        public function checkPassword($password): CacheObject
+        {
+            /** @var CacheObject $cache */
+            $cache = $this->getCacheObject($password);
+
+            if($cache->Compromised)
+            {
+                return $cache;
+            }
+
+            /** @var PasswordResponse $response */
+            $response = $this->isPasswordCompromised($password);
+
+            if($response->getPassword() > 0)
+            {
+                $cache->Compromised = true;
+                $this->updateCacheObject($cache);
+            }
+
+            return $cache;
         }
     }
