@@ -66,7 +66,7 @@
          * @param array $data
          * @return CacheObject
          */
-        public function fromArray(array $data): CacheObject
+        public static function fromArray(array $data): CacheObject
         {
             $CacheObject = new CacheObject();
 
