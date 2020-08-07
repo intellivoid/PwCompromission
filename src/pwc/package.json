@@ -1,0 +1,85 @@
+{
+    "package": {
+        "package_name": "net.intellivoid.pwc",
+        "name": "PwCompromission",
+        "version": "1.0.0.0",
+        "author": "Zi Xing Narrakas",
+        "organization": "Intellivoid",
+        "description": "Verifies if a password has been compromised",
+        "url": "https://github.com/intellivoid/PwCompromission",
+        "dependencies": [],
+        "configuration": {
+            "autoload_method": "indexed",
+            "main": null,
+            "post_installation": [],
+            "pre_installation": []
+        }
+    },
+    "components": [
+        {
+            "required": true,
+            "file": "Adapter/Adapter.php"
+        },
+        {
+            "required": true,
+            "file": "Adapter/Curl.php"
+        },
+        {
+            "required": true,
+            "file": "Adapter/FileGetContents.php"
+        },
+        {
+            "required": true,
+            "file": "AutoConfig.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/DatabaseException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidCredentialsException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/RateLimitExceededException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/UnsupportedException.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/CacheObject.php"
+        },
+        {
+            "required": true,
+            "file": "pwc.php"
+        },
+        {
+            "required": true,
+            "file": "Response/AccountResponse.php"
+        },
+        {
+            "required": true,
+            "file": "Response/BreachResponse.php"
+        },
+        {
+            "required": true,
+            "file": "Response/DataClassResponse.php"
+        },
+        {
+            "required": true,
+            "file": "Response/PasswordResponse.php"
+        },
+        {
+            "required": true,
+            "file": "Response/PasteResponse.php"
+        }
+    ],
+    "files": [
+        "cacert.pem",
+        "configuration.ini",
+        "pwc.json"
+    ]
+}

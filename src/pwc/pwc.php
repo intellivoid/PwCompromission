@@ -18,31 +18,34 @@
     use pwc\Response\PasswordResponse;
     use pwc\Response\PasteResponse;
 
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'Adapter.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'Curl.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'FileGetContents.php');
-
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'DatabaseException.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidCredentialsException.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'RateLimitExceededException.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'UnsupportedException.php');
-
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Objects' . DIRECTORY_SEPARATOR . 'CacheObject.php');
-
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'AccountResponse.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'BreachResponse.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'DataClassResponse.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'PasswordResponse.php');
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'PasteResponse.php');
-
-    if(class_exists('acm\acm') == false)
+    if(defined("PPM") == false)
     {
-        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
-    }
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'Adapter.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'Curl.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Adapter' . DIRECTORY_SEPARATOR . 'FileGetContents.php');
 
-    if(class_exists('msqg\msqg') == false)
-    {
-        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'msqg' . DIRECTORY_SEPARATOR . 'msqg.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'DatabaseException.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'InvalidCredentialsException.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'RateLimitExceededException.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Exceptions' . DIRECTORY_SEPARATOR . 'UnsupportedException.php');
+
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Objects' . DIRECTORY_SEPARATOR . 'CacheObject.php');
+
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'AccountResponse.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'BreachResponse.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'DataClassResponse.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'PasswordResponse.php');
+        include_once(__DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'PasteResponse.php');
+
+        if(class_exists('acm\acm') == false)
+        {
+            include_once(__DIR__ . DIRECTORY_SEPARATOR . 'acm' . DIRECTORY_SEPARATOR . 'acm.php');
+        }
+
+        if(class_exists('msqg\msqg') == false)
+        {
+            include_once(__DIR__ . DIRECTORY_SEPARATOR . 'msqg' . DIRECTORY_SEPARATOR . 'msqg.php');
+        }
     }
 
     include(__DIR__ . DIRECTORY_SEPARATOR . 'AutoConfig.php');
